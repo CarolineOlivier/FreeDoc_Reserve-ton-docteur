@@ -4,25 +4,36 @@
 # belong in git's global ignore instead:
 # `$XDG_CONFIG_HOME/git/ignore` or `~/.config/git/ignore`
 
-# Ignore bundler config.
+# Voir https://help.github.com/articles/ignoring-files pour en savoir plus sur l'ignorance des fichiers.
+#
+# Les fichiers temporaires générés par votre éditeur de texte ou système d'exploitation
+# appartiennent à l'ignore global de git à la place :
+# `$XDG_CONFIG_HOME/git/ignore` ou `~/.config/git/ignore`
+
+# Ignore bundler config. # Ignorer la configuration de bundler.
 /.bundle
 
-# Ignore all environment files (except templates).
+# Ignore all environment files (except templates). # Ignorer tous les fichiers d'environnement (sauf les modèles).
 /.env*
 !/.env*.erb
 
-# Ignore all logfiles and tempfiles.
+# Ignore all logfiles and tempfiles. # Ignorer tous les fichiers journaux et les fichiers temporaires.
 /log/*
 /tmp/*
 !/log/.keep
 !/tmp/.keep
 
-# Ignore pidfiles, but keep the directory.
+# Ignorer les fichiers de la base de données SQLite
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore pidfiles, but keep the directory. # Ignorer les fichiers pid, mais garder le répertoire.
 /tmp/pids/*
 !/tmp/pids/
 !/tmp/pids/.keep
 
 # Ignore storage (uploaded files in development and any SQLite databases).
+# Ignorer le stockage (fichiers téléchargés en développement et bases de données SQLite).
 /storage/*
 !/storage/.keep
 /tmp/storage/*
@@ -32,4 +43,6 @@
 /public/assets
 
 # Ignore master key for decrypting credentials and more.
+# Ignorer la clé maître pour décrypter les informations d'identification et autres.
 /config/master.key
+
