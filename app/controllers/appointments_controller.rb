@@ -18,28 +18,32 @@ class AppointmentsController < ApplicationController
   end
 
   def create
+    # Récupère le docteur et la spécialité avant d'initialiser le rendez-vous
+    @doctor = Doctor.find_by(id: params[:doctor_id])
+    @specialty = Specialty.find_by(id: params[:specialty_id])
+  
     # Crée un nouvel objet Appointment avec les paramètres fournis par le formulaire
     @appointment = Appointment.new(appointment_params)
-
-    # Associe l'ID du docteur au rendez-vous, en récupérant la valeur passée dans les paramètres de la requête
+  
+    # Associe l'ID du docteur au rendez-vous
     @appointment.doctor_id = params[:doctor_id]
-
-    # Associe l'ID de la spécialité au rendez-vous, en récupérant la valeur passée dans les paramètres de la requête
+  
+    # Associe l'ID de la spécialité au rendez-vous
     @appointment.specialty_id = params[:specialty_id]
-
+  
+    # Associe l'ID de la ville du rendez-vous à celle du docteur
+    @appointment.city_id = @doctor.city_id if @doctor
+  
     # Tente de sauvegarder le rendez-vous dans la base de données
     if @appointment.save
       # Si la sauvegarde réussit, redirige l'utilisateur vers la page du docteur et affiche un message de confirmation
       redirect_to doctor_path(@appointment.doctor), notice: "Rendez-vous validé."
     else
-      # Si la sauvegarde échoue, récupère à nouveau les informations sur le docteur et la spécialité
-      @doctor = Doctor.find_by(id: params[:doctor_id])
-      @specialty = Specialty.find_by(id: params[:specialty_id])
-
-      # Affiche à nouveau le formulaire de création de rendez-vous pour que l'utilisateur puisse corriger les erreurs
+      # Si la sauvegarde échoue, réaffiche le formulaire
       render :new
     end
   end
+  
 
   private
 

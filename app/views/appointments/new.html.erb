@@ -1,8 +1,41 @@
+<% if @appointment.errors.any? %>
+  <!-- Vérifie s'il y a des erreurs de validation sur l'objet @appointment.
+       La méthode .errors.any? renvoie true s'il y a au moins une erreur. -->
+
+  <div class="alert alert-danger">
+    <!-- Crée un conteneur avec une classe CSS pour styliser le message d'erreur.
+         La classe 'alert alert-danger' est souvent utilisée pour afficher les erreurs avec un style d'alerte (nécessite un framework CSS comme Bootstrap). -->
+
+    <h4>Le formulaire contient les erreurs suivantes :</h4>
+    <!-- Affiche un titre indiquant que le formulaire contient des erreurs. -->
+
+    <ul>
+      <!-- Commence une liste non ordonnée pour afficher les messages d'erreurs. -->
+
+      <% @appointment.errors.full_messages.each do |message| %>
+        <!-- Parcourt chaque message d'erreur de validation présent dans @appointment.errors.full_messages.
+             Chaque message d'erreur est assigné à la variable locale 'message'. -->
+
+        <li><%= message %></li>
+        <!-- Affiche le message d'erreur dans un élément de la liste (<li>). -->
+
+      <% end %>
+      <!-- Fin de la boucle .each qui parcourt les messages d'erreurs. -->
+
+    </ul>
+    <!-- Fin de la liste non ordonnée. -->
+
+  </div>
+  <!-- Fin du conteneur d'alerte. -->
+
+<% end %>
+<!-- Fin de la condition if qui vérifie la présence d'erreurs. -->
+
 <h1>Prendre rendez-vous avec <%= @doctor.first_name %> <%= @doctor.last_name %> - Spécialité : <%= @specialty.name %></h1>
 <!-- Affiche le nom du docteur et la spécialité choisie pour le rendez-vous -->
 
 <%= form_with(model: @appointment, url: appointments_path(doctor_id: @doctor.id, specialty_id: @specialty.id), local: true) do |form| %>
-<!-- Création d'un formulaire pour l'objet @appointment avec l'URL spécifiée -->
+  <!-- Création d'un formulaire pour l'objet @appointment avec l'URL spécifiée -->
 
   <div class="field">
     <%= form.label :date, "Date du rendez-vous" %>

@@ -22,37 +22,38 @@
 # db/seeds.rb
 
 # Création des villes
-cities = City.create!([
+cities = [
   { name: 'Perpignan', zip_code: '66000' },
   { name: 'Clermont-Ferrand', zip_code: '63000' }
-])
+].map { |city| City.find_or_create_by!(city) }
 
 # Création des spécialités
-specialties = Specialty.create!([
+specialties = [
   { name: 'Généraliste' },
   { name: 'Génétique' },
   { name: 'Médecine physique et de réadaptation (MPR)' }
-])
+].map { |specialty| Specialty.find_or_create_by!(specialty) }
 
 # Création des docteurs avec les villes associées
-doctors = Doctor.create!([
-  { first_name: 'Naussicaa', last_name: 'Imbert', city: cities.first },
-  { first_name: 'Bénédicte', last_name: 'Pontier', city: cities.last }
-])
+doctors = [
+  { first_name: 'Naussicaa', last_name: 'Imbert', city: cities[0] },
+  { first_name: 'Bénédicte', last_name: 'Pontier', city: cities[1] }
+].map { |doctor| Doctor.find_or_create_by!(doctor) }
 
 # Association des spécialités aux docteurs
-doctors.first.specialties << specialties.first # Naussicaa Imbert : Généraliste
-doctors.last.specialties << specialties[1] # Bénédicte Pontier : Génétique
-doctors.last.specialties << specialties[2] # Bénédicte Pontier : Médecine physique et de réadaptation (MPR)
+doctors[0].specialties << specialties[0] unless doctors[0].specialties.include?(specialties[0])
+doctors[1].specialties << specialties[1] unless doctors[1].specialties.include?(specialties[1])
+doctors[1].specialties << specialties[2] unless doctors[1].specialties.include?(specialties[2])
 
 # Création des patients avec les villes associées
-patients = Patient.create!([
-  { first_name: 'Caroline', last_name: 'Olivier', city: cities.first },
-  { first_name: 'Céline', last_name: 'Victor', city: cities.last }
-])
+patients = [
+  { first_name: 'Caroline', last_name: 'Olivier', city: cities[0] },
+  { first_name: 'Céline', last_name: 'Victor', city: cities[1] }
+].map { |patient| Patient.find_or_create_by!(patient) }
 
 # Création des rendez-vous en les associant aux villes et aux spécialités
-Appointment.create!([
-  { date: DateTime.now, doctor: doctors.first, patient: patients.first, city: cities.first, specialty: specialties.first },
-  { date: DateTime.now + 1.day, doctor: doctors.last, patient: patients.last, city: cities.last, specialty: specialties[1] }
-])
+appointments = [
+  { date: DateTime.now, doctor: doctors[0], patient: patients[0], city: cities[0], specialty: specialties[0] },
+  { date: DateTime.now + 1.day, doctor: doctors[1], patient: patients[1], city: cities[1], specialty: specialties[1] }
+].each { |appointment| Appointment.find_or_create_by!(appointment) }
+
