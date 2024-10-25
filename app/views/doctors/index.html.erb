@@ -1,0 +1,14 @@
+<h1>Liste des médecins</h1>
+<p>Find me in app/views/doctors/index.html.erb</p>
+
+<h1>Liste des Docteurs</h1>
+
+<ul>
+  <% @doctors.each do |doctor| %>
+    <li>
+      <%= doctor.first_name %> <%= doctor.last_name %> - Ville : <%= doctor.city.name %>
+      <!-- Bouton pour voir les détails du docteur -->
+      <%= link_to 'Voir les détails', doctor_path(doctor), class: 'btn btn-primary' %>
+    </li>
+  <% end %>
+</ul>

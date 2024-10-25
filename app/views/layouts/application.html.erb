@@ -1,22 +1,54 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= content_for(:title) || "Free Doc Reserve Ton Docteur" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title><%= content_for(:title) || "Free Doc Reserve Ton Docteur" %></title>
+  <!-- Définit le titre de la page. Si un titre est spécifié avec content_for(:title), il sera utilisé ;
+       sinon, "Free Doc Reserve Ton Docteur" sera utilisé par défaut. -->
 
-    <%= yield :head %>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- Configure le viewport pour une meilleure compatibilité mobile. 
+       Cela permet à la page de s'adapter à la largeur de l'écran de l'appareil. -->
 
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  </head>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- Permet aux appareils Apple (iPhone, iPad) d'afficher l'application en plein écran si elle est ajoutée à l'écran d'accueil. -->
 
-  <body>
-    <%= yield %>
-  </body>
+  <%= csrf_meta_tags %>
+  <!-- Ajoute des balises meta pour la protection contre les attaques CSRF (Cross-Site Request Forgery).
+       Cela est nécessaire pour sécuriser les formulaires et les requêtes POST dans une application Rails. -->
+
+  <%= csp_meta_tag %>
+  <!-- Ajoute les balises meta pour la politique de sécurité du contenu (CSP), 
+       qui aide à prévenir certains types d'attaques, comme l'injection de scripts. -->
+
+  <%= yield :head %>
+  <!-- Permet d'insérer du contenu supplémentaire dans la balise <head> depuis d'autres vues, 
+       en utilisant la méthode yield avec le symbole :head. -->
+
+  <link rel="manifest" href="/manifest.json">
+  <!-- Lien vers le fichier manifest.json, utilisé pour les Progressive Web Apps (PWA).
+       Ce fichier contient les informations sur l'application, comme les icônes et le nom. -->
+
+  <link rel="icon" href="/icon.png" type="image/png">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <!-- Définit les icônes pour l'application. Les navigateurs utiliseront ces icônes dans les onglets ou les signets. -->
+
+  <link rel="apple-touch-icon" href="/icon.png">
+  <!-- Spécifie l'icône à utiliser lorsque l'application est ajoutée à l'écran d'accueil sur un appareil Apple. -->
+
+  <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
+  <!-- Inclut le fichier CSS principal 'application.css' dans la page.
+       L'attribut "data-turbo-track" est utilisé pour le rechargement automatique avec Turbo. -->
+
+  <%= stylesheet_link_tag "custom", media: "all", "data-turbo-track": "reload" %>
+  <!-- Inclut le fichier CSS personnalisé 'custom.css' pour les styles supplémentaires.
+       Cela permet de styliser l'application de manière plus personnalisée. -->
+
+</head>
+
+<body>
+  <%= yield %>
+  <!-- Rend le contenu principal de la page, qui est fourni par les vues associées au contrôleur. 
+       Cette ligne permet d'insérer le contenu de la vue correspondante dans le layout. -->
+
+</body>
 </html>

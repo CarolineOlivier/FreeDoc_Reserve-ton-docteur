@@ -1,0 +1,42 @@
+<h1><%= @doctor.first_name %> <%= @doctor.last_name %></h1>
+<!-- Affiche le nom complet du docteur en utilisant les variables d'instance @doctor.first_name et @doctor.last_name, 
+     entouré d'une balise <h1> pour le titre. -->
+
+<p>Ville : <%= @doctor.city.name %></p>
+<!-- Affiche la ville du docteur. La méthode @doctor.city.name permet d'accéder au nom de la ville associée au docteur. -->
+
+<% if @doctor.specialties.any? %>
+  <!-- Vérifie s'il existe au moins une spécialité associée au docteur en utilisant la méthode .any?. -->
+
+  <p>Choisissez une spécialité pour le rendez-vous :</p>
+  <!-- Affiche un texte indiquant de choisir une spécialité si le docteur en a au moins une. -->
+
+  <ul>
+    <!-- Commence une liste non ordonnée pour afficher les spécialités du docteur. -->
+
+    <% @doctor.specialties.each do |specialty| %>
+      <!-- Parcourt chaque spécialité associée au docteur avec une boucle .each, 
+           en assignant la spécialité actuelle à la variable specialty. -->
+
+      <li>
+        <%= link_to specialty.name, new_appointment_path(doctor_id: @doctor.id, specialty_id: specialty.id), class: 'btn btn-link' %>
+        <!-- Crée un lien vers la page de création de rendez-vous, en passant l'ID du docteur et l'ID de la spécialité. 
+             Le lien affiche le nom de la spécialité et utilise la classe 'btn btn-link' pour le styliser. -->
+      </li>
+
+    <% end %>
+    <!-- Fin de la boucle .each qui parcourt les spécialités. -->
+  </ul>
+  <!-- Fin de la liste non ordonnée. -->
+
+<% else %>
+  <!-- Sinon, si le docteur n'a pas de spécialités associées. -->
+
+  <p>Aucune spécialité associée.</p>
+  <!-- Affiche le message "Aucune spécialité associée." -->
+<% end %>
+<!-- Fin de la condition if/else. -->
+
+<%= link_to 'Retour à la liste des docteurs', doctors_path, class: 'btn btn-primary' %>
+<!-- Crée un lien qui redirige vers la liste des docteurs (doctors_path) avec le texte "Retour à la liste des docteurs".
+     Le lien utilise une classe CSS 'btn btn-primary' pour le styliser (peut nécessiter un framework CSS comme Bootstrap). -->

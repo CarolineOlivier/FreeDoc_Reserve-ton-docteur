@@ -5,6 +5,14 @@ gem "rails", "~> 7.2.1", ">= 7.2.1.2"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 # Use sqlite3 as the database for Active Record
+gem 'sassc-rails'
+#gemme qui  permet de compiler les fichiers .scss en CSS.
+gem 'bootstrap', '~> 5.0'
+gem 'mini_racer'
+# Ajoute la gem 'mini_racer' pour fournir un runtime JavaScript.
+# Cela permet à Rails de traiter les fichiers JavaScript, nécessaires pour certaines bibliothèques comme Bootstrap.
+# MiniRacer utilise le moteur V8 de Google pour exécuter le code JavaScript.
+# Utile surtout si on ne dispose pas déjà d'un environnement JavaScript installé sur notre machine.
 gem "sqlite3", ">= 1.4"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"

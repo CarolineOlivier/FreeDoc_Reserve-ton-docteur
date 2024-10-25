@@ -1,0 +1,50 @@
+/* Mode sombre */
+body {
+    background-color: #121212; /* Couleur de fond sombre */
+    color: #e0e0e0; /* Couleur du texte clair */
+    font-family: Arial, sans-serif;
+}
+
+/* Styles pour les titres */
+h1, h2, h3, h4, h5, h6 {
+    color: #ffffff; /* Couleur des titres en blanc */
+}
+
+/* Styles pour les boutons */
+.btn, .btn-primary {
+    background-color: #1f78b4; /* Couleur de fond des boutons */
+    color: #ffffff; /* Couleur du texte */
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    border: none;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #145374; /* Couleur du bouton au survol */
+}
+
+/* Liens */
+a {
+    color: #64b5f6; /* Couleur des liens */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #2196f3; /* Couleur des liens au survol */
+    text-decoration: underline;
+}
+
+/* Listes */
+ul, ol {
+    color: #e0e0e0; /* Couleur des éléments de liste */
+}
+
+/* Conteneurs */
+.container {
+    background-color: #1e1e1e; /* Fond des conteneurs pour les sections */
+    padding: 20px;
+    border-radius: 10px;
+}
