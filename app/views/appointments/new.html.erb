@@ -1,23 +1,26 @@
+<h1>Prendre rendez-vous avec <%= @doctor.first_name %> <%= @doctor.last_name %> - Spécialité : <%= @specialty.name %></h1>
+<!-- Affiche le nom du docteur et la spécialité choisie pour le rendez-vous -->
 
-<% if @doctor && @specialty %>
-  <h1>Prendre rendez-vous avec <%= @doctor.first_name %> <%= @doctor.last_name %> - Spécialité : <%= @specialty.name %></h1>
-  <!-- Affiche le titre avec le nom du docteur et la spécialité -->
+<%= form_with(model: @appointment, url: appointments_path(doctor_id: @doctor.id, specialty_id: @specialty.id), local: true) do |form| %>
+<!-- Création d'un formulaire pour l'objet @appointment avec l'URL spécifiée -->
 
-  <%= form_with(model: @appointment, url: appointments_path(doctor_id: @doctor.id, specialty_id: @specialty.id), local: true) do |form| %>
-    <div class="field">
-      <%= form.label :date, "Date du rendez-vous" %>
-      <%= form.datetime_select :date %>
-    </div>
+  <div class="field">
+    <%= form.label :date, "Date du rendez-vous" %>
+    <!-- Affiche une étiquette pour le champ date -->
+    <%= form.datetime_select :date %>
+    <!-- Champ de sélection de la date pour le rendez-vous -->
+  </div>
 
-    <div class="field">
-      <%= form.label :patient_id, "Patient" %>
-      <%= form.collection_select :patient_id, Patient.all, :id, :full_name, prompt: "Sélectionnez un patient" %>
-    </div>
+  <div class="field">
+    <%= form.label :patient_id, "Patient" %>
+    <!-- Affiche une étiquette pour le champ de sélection du patient -->
+    <%= form.collection_select :patient_id, Patient.all, :id, :full_name, prompt: "Sélectionnez un patient" %>
+    <!-- Permet de choisir un patient parmi la liste existante -->
+  </div>
 
-    <div class="actions">
-      <%= form.submit "Créer le rendez-vous", class: "btn btn-primary" %>
-    </div>
-  <% end %>
-<% else %>
-  <p>Le docteur ou la spécialité sélectionnée n'existe pas. Veuillez revenir à la liste des docteurs et réessayer.</p>
+  <div class="actions">
+    <%= form.submit "Créer le rendez-vous", class: "btn btn-primary" %>
+    <!-- Bouton de soumission du formulaire -->
+  </div>
 <% end %>
+<!-- Fin du formulaire -->
