@@ -1,4 +1,3 @@
-
 # app/controllers/appointments_controller.rb
 class AppointmentsController < ApplicationController
   def new
@@ -18,43 +17,26 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.new
   end
 
-def create
-  # Crée un nouvel objet Appointment avec les paramètres fournis par le formulaire
-  @appointment = Appointment.new(appointment_params)
-  
-  # Associe l'ID du docteur au rendez-vous, en récupérant la valeur passée dans les paramètres de la requête
-  @appointment.doctor_id = params[:doctor_id]
-  
-  # Associe l'ID de la spécialité au rendez-vous, en récupérant la valeur passée dans les paramètres de la requête
-  @appointment.specialty_id = params[:specialty_id]
-
-  # Tente de sauvegarder le rendez-vous dans la base de données
-  if @appointment.save
-    # Si la sauvegarde réussit, redirige l'utilisateur vers la page du docteur et affiche un message de confirmation
-    redirect_to doctor_path(@appointment.doctor), notice: "Rendez-vous validé."
-  else
-    # Si la sauvegarde échoue (par exemple, en raison d'une validation non respectée),
-    # récupère les informations sur le docteur et la spécialité à partir des paramètres
-    @doctor = Doctor.find_by(id: params[:doctor_id])
-    @specialty = Specialty.find_by(id: params[:specialty_id])
-    
-    # Affiche à nouveau le formulaire de création de rendez-vous pour que l'utilisateur puisse corriger les erreurs
-    render :new
-  end
-end
-    # Crée un nouvel objet de rendez-vous avec les paramètres fournis
+  def create
+    # Crée un nouvel objet Appointment avec les paramètres fournis par le formulaire
     @appointment = Appointment.new(appointment_params)
-    # Associe le rendez-vous au docteur sélectionné
-    @appointment.doctor_id = @doctor.id
-    # Associe le rendez-vous à la spécialité sélectionnée
-    @appointment.specialty_id = @specialty.id
 
-    # Sauvegarde le rendez-vous en base de données
+    # Associe l'ID du docteur au rendez-vous, en récupérant la valeur passée dans les paramètres de la requête
+    @appointment.doctor_id = params[:doctor_id]
+
+    # Associe l'ID de la spécialité au rendez-vous, en récupérant la valeur passée dans les paramètres de la requête
+    @appointment.specialty_id = params[:specialty_id]
+
+    # Tente de sauvegarder le rendez-vous dans la base de données
     if @appointment.save
-      # Si la sauvegarde réussit, redirige vers la page du docteur avec un message de confirmation
+      # Si la sauvegarde réussit, redirige l'utilisateur vers la page du docteur et affiche un message de confirmation
       redirect_to doctor_path(@appointment.doctor), notice: "Rendez-vous validé."
     else
-      # Si la sauvegarde échoue, réaffiche le formulaire de création
+      # Si la sauvegarde échoue, récupère à nouveau les informations sur le docteur et la spécialité
+      @doctor = Doctor.find_by(id: params[:doctor_id])
+      @specialty = Specialty.find_by(id: params[:specialty_id])
+
+      # Affiche à nouveau le formulaire de création de rendez-vous pour que l'utilisateur puisse corriger les erreurs
       render :new
     end
   end
@@ -66,5 +48,3 @@ end
     params.require(:appointment).permit(:date, :patient_id)
   end
 end
-
-
